@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <title>Exercise 4</title>
+</head>
+
+<body style="width: 1000px; margin: 0 auto;">
+    <div class="container mt-5">
+        <h2>Danh sách sinh viên</h2>
+        <div style="display: flex; justify-content: space-between">
+            <div class="form-group" style="width: 48%;">
+                <label for="name">Họ và tên</label>
+                <input type="text" class="form-control" id="name" placeholder="Nhập họ tên...">
+            </div>
+            <div class="form-group" style="width: 48%;">
+                <label for="age">Nhập tuổi</label>
+                <input type="text" class="form-control" id="age" placeholder="Nhập tuổi...">
+            </div>
+        </div>
+        <div class="">
+            <button id="btn-local" class="btn btn-danger">Thêm Local Storage</button>
+            <button id="btn-session" class="btn btn-warning ml-2">Thêm Session Storage</button>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-top: 12px;">
+            <div style="width: 48%">
+                <h3 class="text-primary">Local Storage</h3>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Tên</th>
+                            <th>Tuổi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body-1">
+
+                    </tbody>
+                </table>
+            </div>
+            <div style="width: 48%">
+                <h3 class="text-danger">Session Storage</h3>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Tên</th>
+                            <th>Tuổi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body-2">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    const tableBody1 = document.getElementById("table-body-1")
+    const tableBody2 = document.getElementById("table-body-2")
+    const btnLocal = document.getElementById("btn-local")
+    const btnSession = document.getElementById("btn-session")
+    let nameBox = document.getElementById("name")
+    let ageBox = document.getElementById("age")
+
+
+    const displayStudent = (student, tableId) => {
+        const tr = document.createElement("tr")
+        const idS = document.createElement("td")
+        const nameS = document.createElement("td")
+        const ageS = document.createElement("td")
+
+        idS.innerHTML = student.idS
+        nameS.innerHTML = student.nameS
+        ageS.innerHTML = student.ageS
+
+        tableId.appendChild(tr)
+        tr.appendChild(idS)
+        tr.appendChild(nameS)
+        tr.appendChild(ageS)
+    }
+
+    let localStudent = JSON.parse(localStorage.getItem("studentList"))
+
+    if (!localStudent) {
+        localStudent = []
+    }
+
+    for (let i = 0; i < localStudent.length; i++) {
+        displayStudent(localStudent[i], tableBody1)
+    }
+
+    let sessionStudent = JSON.parse(sessionStorage.getItem("studentList"))
+
+    if (!sessionStudent) {
+        sessionStudent = []
+    }
+
+    for (let i = 0; i < sessionStudent.length; i++) {
+        displayStudent(sessionStudent[i], tableBody2)
+    }
+
+    btnLocal.addEventListener("click", () => {
+        let name = nameBox.value
+        let age = ageBox.value
+        let student = {
+            idS: localStudent.length + 1,
+            nameS: name,
+            ageS: age
+        }
+
+        // set empty input
+        nameBox.value = ""
+        ageBox.value = ""
+
+        localStudent.push(student)
+        localStorage.setItem("studentList", JSON.stringify(localStudent))
+
+        displayStudent(student, tableBody1)
+    })
+
+    btnSession.addEventListener("click", () => {
+        let name = nameBox.value
+        let age = ageBox.value
+        let student = {
+            idS: localStudent.length + 1,
+            nameS: name,
+            ageS: age
+        }
+
+        // set empty input
+        nameBox.value = ""
+        ageBox.value = ""
+
+        sessionStudent.push(student)
+        sessionStorage.setItem("studentList", JSON.stringify(sessionStudent))
+
+        displayStudent(student, tableBody2)
+    })
+</script>
+
+</html>

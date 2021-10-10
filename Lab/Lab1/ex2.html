@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise 2</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+
+<body style="width: 800px; margin: 0 auto;">
+    <div class="container mt-5">
+        <h2>Danh sách sinh viên</h2>
+        <p>Nhấn một button để tải danh sách</p>
+        <div class="my-3">
+            <button id="btn-fetch" class="btn btn-danger">Load by Fetch</button>
+            <button id="btn-ajax"class="btn btn-warning ml-2">Load by Ajax</button>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+                
+            </tbody>
+        </table>
+    </div>
+</body>
+
+<script>
+    const btnFetch = document.getElementById('btn-fetch')
+    const btnAjax = document.getElementById('btn-ajax')
+    const SERVER_URL = 'https://web-nang-cao.herokuapp.com/lab1/students.json'
+    let tableBody = document.getElementById('table-body')
+    
+    btnFetch.addEventListener('click', () => {
+        fetch(SERVER_URL)
+        .then(result => result.json())
+        .then(json => {
+            let data = json.data
+            displayData(data)
+        })
+        .catch(error => console.log(error))
+    })
+
+    btnAjax.addEventListener('click', () => {
+        let xhr = new XMLHttpRequest()
+        xhr.onload = () => {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                let data = xhr.response.data
+                displayData(data)
+            }
+        }
+        xhr.open('GET', SERVER_URL, true)
+        xhr.responseType = 'json'
+        xhr.send()
+    })
+
+    const displayData = data => {
+        tableBody.innerHTML = ""
+        data.forEach(item => {
+                    let tr = document.createElement('tr')
+                    let id = document.createElement('td')
+                    let name = document.createElement('td')
+                    let age = document.createElement('td')
+
+                    id.innerHTML = item.id
+                    name.innerHTML = item.name
+                    age.innerHTML = item.age
+ 
+                    tr.appendChild(id)
+                    tr.appendChild(name)
+                    tr.appendChild(age)
+                    tableBody.appendChild(tr)
+                })
+    }
+</script>
+</html>
