@@ -18,7 +18,7 @@
         <p>Nhấn một button để tải danh sách</p>
         <div class="my-3">
             <button id="btn-fetch" class="btn btn-danger">Load by Fetch</button>
-            <button id="btn-ajax"class="btn btn-warning ml-2">Load by Ajax</button>
+            <button id="btn-ajax" class="btn btn-warning ml-2">Load by Ajax</button>
         </div>
         <table class="table">
             <thead>
@@ -29,7 +29,7 @@
                 </tr>
             </thead>
             <tbody id="table-body">
-                
+
             </tbody>
         </table>
     </div>
@@ -40,15 +40,15 @@
     const btnAjax = document.getElementById('btn-ajax')
     const SERVER_URL = 'https://web-nang-cao.herokuapp.com/lab1/students.json'
     let tableBody = document.getElementById('table-body')
-    
+
     btnFetch.addEventListener('click', () => {
         fetch(SERVER_URL)
-        .then(result => result.json())
-        .then(json => {
-            let data = json.data
-            displayData(data)
-        })
-        .catch(error => console.log(error))
+            .then(result => result.json())
+            .then(json => {
+                let data = json.data
+                displayData(data)
+            })
+            .catch(error => console.log(error))
     })
 
     btnAjax.addEventListener('click', () => {
@@ -67,20 +67,21 @@
     const displayData = data => {
         tableBody.innerHTML = ""
         data.forEach(item => {
-                    let tr = document.createElement('tr')
-                    let id = document.createElement('td')
-                    let name = document.createElement('td')
-                    let age = document.createElement('td')
+            let tr = document.createElement('tr')
+            let id = document.createElement('td')
+            let name = document.createElement('td')
+            let age = document.createElement('td')
 
-                    id.innerHTML = item.id
-                    name.innerHTML = item.name
-                    age.innerHTML = item.age
- 
-                    tr.appendChild(id)
-                    tr.appendChild(name)
-                    tr.appendChild(age)
-                    tableBody.appendChild(tr)
-                })
+            id.innerHTML = item.id
+            name.innerHTML = item.name
+            age.innerHTML = item.age
+
+            tr.appendChild(id)
+            tr.appendChild(name)
+            tr.appendChild(age)
+            tableBody.appendChild(tr)
+        })
     }
 </script>
+
 </html>
