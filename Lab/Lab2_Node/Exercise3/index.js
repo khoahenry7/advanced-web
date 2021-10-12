@@ -52,7 +52,7 @@ http.createServer((req, res) => {
 
             req.on("end", () => {
                 let { name, age } = JSON.parse(body)
-               
+
                 studentList.forEach(student => {
                     if (student.id === id) {
                         student.name = name
@@ -65,16 +65,16 @@ http.createServer((req, res) => {
             })
         } else if (req.method == 'DELETE') {
             let notification = "Can not find id: " + id;
-            
+
             let idx = studentList.findIndex(student => student.id === id)
 
             if (idx >= 0) {
                 studentList.splice(idx, 1)
                 notification = "Delete student id: " + id + " successful"
-            } 
-            
+            }
+
             res.end(notification)
-        } 
+        }
     } else {
         res.end(`
         <!DOCTYPE html>

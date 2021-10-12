@@ -1,0 +1,23 @@
+GET http://localhost:8888/students
+
+### 
+POST http://localhost:8888/students
+
+{
+    "name": "Khoa",
+    "age": "20"
+}
+
+###
+PUT http://localhost:8888/students/2
+
+{
+    "name": "bang",
+    "age": "18"
+}
+
+###
+GET http://localhost:8888/students/2
+
+###
+DELETE http://localhost:8888/students/2
