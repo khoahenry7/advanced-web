@@ -1,0 +1,56 @@
+<%- include('layouts/header.ejs'); -%>
+    <div class="m-10">
+        <h3 class="text-3xl mb-4 text-blue-500 text-left text-bold">Products List</h3>
+        <a class="px-4 py-2 text-sm text-white bg-green-600 rounded" href="./add">Add product</a>
+        <p class="my-4">Select a product to view details</p>
+        <div class="container flex justify-left flex flex-col w-full border rounded border-gray-200">
+            <table>
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-12 py-4 text-lg text-gray-900 text-center">
+                            ID
+                        </th>
+                        <th class="px-12 py-4 text-lg text-gray-900 text-center">
+                            Product name
+                        </th>
+                        <th class="px-12 py-4 text-lg text-gray-900 text-center">
+                            Price
+                        </th>
+                        <th class="px-12 py-4 text-lg text-gray-900 text-center">
+                            Edit
+                        </th>
+                        <th class="px-12 py-4 text-lg text-gray-900 text-center">
+                            Delete
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white">
+                    <% for(let i=0; i < productList.length; i++) { %>
+                        <tr class="whitespace-nowrap">
+                            <a href="/<%= productList[i].id %>" class="">
+                                <td class="px-12 py-6 text-sm text-gray-900 text-center text-lg">
+                                    <%= productList[i].id %>
+                                </td>
+                                <td class="px-12 py-6 text-sm text-gray-900 text-center text-lg">
+                                    <a href="/<%= productList[i].id %>">
+                                        <%= productList[i].name %>
+                                    </a>
+                                </td>
+                                <td class="px-12 py-6 text-sm text-gray-900 text-center text-lg">
+                                    <%= productList[i].price %>$
+                                </td>
+                                <td class="px-12 py-6 text-center text-lg">
+                                    <a href="/edit/<%= productList[i].id %>"
+                                        class="px-5 py-2 text-sm text-white bg-blue-700 rounded">Edit</a>
+                                </td>
+                                <td class="px-12 py-6 text-center text-lg">
+                                    <a href="/delete/<%= productList[i].id %>" class="px-5 py-2 text-sm text-white bg-red-700 rounded">Delete</a>
+                                </td>
+                            </a>
+                        </tr>
+
+                        <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
