@@ -1,0 +1,52 @@
+<%- include('layouts/header.ejs'); -%>
+
+    <body>
+        <div class="m-10">
+            <h3 class="text-3xl mb-4 text-blue-500 text-left text-bold">Product Id = <%= product.product_id %>
+            </h3>
+            <div class="container flex justify-left flex flex-col w-full border rounded border-gray-200">
+                <table>
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-12 py-4 text-lg text-gray-900 text-center">
+                                ID
+                            </th>
+                            <th class="px-12 py-4 text-lg text-gray-900 text-center">
+                                Product name
+                            </th>
+                            <th class="px-12 py-4 text-lg text-gray-900 text-center">
+                                Price
+                            </th>
+                            <th class="px-12 py-4 text-lg text-gray-900 text-center">
+                                Image
+                            </th>
+                            <th class="px-12 py-4 text-lg text-gray-900 text-center">
+                                Description
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white">
+                        <tr class="whitespace-nowrap">
+                            <td class="px-12 py-6 text-sm text-gray-900 text-center text-lg">
+                                <%= product.product_id %>
+                            </td>
+                            <td class="px-12 py-6 text-sm text-gray-900 text-center text-lg">
+                                <%= product.name %>
+                            </td>
+                            <td class="px-12 py-6 text-sm text-gray-900 text-center text-lg">
+                                <%= product.price %>
+                            </td>
+                            <td class="px-12 py-6 text-sm text-gray-900 text-center text-lg flex justify-center">
+                                <img class="w-20" src="/<%= product.image %>" />
+                            </td>
+                            <td class="px-12 py-6 text-sm text-gray-900 text-center text-lg">
+                                <%= product.description %>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+
+    </html>

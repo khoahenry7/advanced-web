@@ -27,12 +27,12 @@
                 <tbody class="bg-white">
                     <% for(let i=0; i < productList.length; i++) { %>
                         <tr class="whitespace-nowrap">
-                            <a href="/<%= productList[i].id %>" class="">
+                            <a href="/<%= productList[i].product_id %>" class="">
                                 <td class="px-12 py-6 text-sm text-gray-900 text-center text-lg">
-                                    <%= productList[i].id %>
+                                    <%= productList[i].product_id %>
                                 </td>
                                 <td class="px-12 py-6 text-sm text-gray-900 text-center text-lg">
-                                    <a href="/<%= productList[i].id %>">
+                                    <a href="/<%= productList[i].product_id %>">
                                         <%= productList[i].name %>
                                     </a>
                                 </td>
@@ -40,11 +40,12 @@
                                     <%= productList[i].price %>$
                                 </td>
                                 <td class="px-12 py-6 text-center text-lg">
-                                    <a href="/edit/<%= productList[i].id %>"
+                                    <a href="/edit/<%= productList[i].product_id %>"
                                         class="px-5 py-2 text-sm text-white bg-blue-700 rounded">Edit</a>
                                 </td>
                                 <td class="px-12 py-6 text-center text-lg">
-                                    <a href="/delete/<%= productList[i].id %>" class="px-5 py-2 text-sm text-white bg-red-700 rounded">Delete</a>
+                                    <a href="/delete/<%= productList[i].product_id %>"
+                                        class="px-5 py-2 text-sm text-white bg-red-700 rounded">Delete</a>
                                 </td>
                             </a>
                         </tr>

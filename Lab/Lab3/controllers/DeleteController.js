@@ -1,33 +1,29 @@
-let LocalStorage = require('node-localstorage').LocalStorage,
-    localStorage = new LocalStorage('./localStorage');
-// localStorage.clear();
-let productList = JSON.parse(localStorage.getItem('productList'))
-if (!productList) {
-    productList = []
-}
-
-class HomeController {
-    getDelete(req, res) {
-        let id = parseInt(req.params.slug)
-        for (let i = 0; i < productList.length; i++) {
-            if (productList[i].id === id) {
-                return res.render('delete', { product: productList[i], title: 'Error' })
-            }
-        }
-        res.render('error', {title: 'Error'})
+const fs = require('fs')
+const { promisify } = require('util')
+const unlink = promisify(fs.unlink)
+const path = require('path')
+const Product = require('../models/Product')
+class DeleteController {
+    getDelete(req, res, next) {
+        let id = parseInt(req.params.id)
+        Product.find({ product_id: id })
+            .then(product => res.render('delete', {
+                title: 'Delete Product',
+                product: product[0]
+            }))
+            .catch(next)
     }
 
-    postDelete(req, res) {
-        let id = parseInt(req.params.slug)
-        for (let i = 0; i < productList.length; i++) {
-            if (productList[i].id === id) {
-                productList.splice(i, 1)
-                localStorage.setItem('productList', JSON.stringify(productList))
-                return res.render('index', { productList: productList })
-            }
-        }
-        res.render('error', {title: 'Error'})
+    delete(req, res, next) {
+        let id = parseInt(req.params.id)
+
+        Product.findOneAndDelete({ product_id: id })
+            .then(product => {
+                unlink(path.join(__dirname, '../public/' + product.image))
+                res.redirect('../')
+            })
+            .catch(next)
     }
 }
 
-module.exports = new HomeController()
+module.exports = new DeleteController()

@@ -5,7 +5,7 @@ const homeController = require('../controllers/HomeController')
 
 
 router.get('/index', homeController.home)
-router.get("/:slug", homeController.getSlug)
+router.get("/:id", homeController.getId)
 router.get('/', homeController.home)
 
 module.exports = router

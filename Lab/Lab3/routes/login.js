@@ -7,8 +7,3 @@ router.get('/', loginController.get)
 router.post('/', loginController.post)
 
 module.exports = router
-
-
-
-
-

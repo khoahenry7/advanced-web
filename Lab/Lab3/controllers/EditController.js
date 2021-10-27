@@ -1,50 +1,45 @@
-let LocalStorage = require('node-localstorage').LocalStorage,
-    localStorage = new LocalStorage('./localStorage');
-// localStorage.clear();
-let productList = JSON.parse(localStorage.getItem('productList'))
-if (!productList) {
-    productList = []
-}
-
+const fs = require('fs')
+const { promisify } = require('util')
+const unlink = promisify(fs.unlink)
+const path = require('path')
+const Product = require('../models/Product')
 class EditController {
-    getEdit(req, res) {
-        let id = parseInt(req.params.slug)
-        for (let i = 0; i < productList.length; i++) {
-            if (productList[i].id === id) {
-                return res.render('edit', { product: productList[i], title: "Edit Product"})
-            }
-        }
-        res.render('error', {title: 'Error'})
+
+    edit(req, res, next) {
+        let id = parseInt(req.params.id)
+        Product.find({ product_id: id })
+            .then(product => res.render('edit', {
+                title: 'Edit Product',
+                product: product[0]
+            }))
+            .catch(next)
     }
 
-    postEdit(req, res) {
-        let id = parseInt(req.params.slug)
-        let checkId = false
-        for (let i = 0; i < productList.length; i++) {
-            if (productList[i].id === id) {
-                checkId = true
-                let image = productList[i].image;
-                if (req.file) {
-                    image = req.file.path.split("\\").slice(1).join("/")
-                }
+    update(req, res, next) {
+        let id = parseInt(req.params.id)
+        let image
+        Product.findOne({ product_id: id })
+            .then(product => {
+                image = product.image
+                unlink(path.join(__dirname, '../public/' + product.image))
+            })
+            .catch(next)
 
-                let { productName, price, description } = req.body
-                let productJson = {
-                    id: id,
-                    name: productName || productList[i].name,
-                    price: price || productList[i].price,
-                    image: image,
-                    description: description || productList[i].name
-                }
-
-                productList[i] = productJson;
-                localStorage.setItem('productList', JSON.stringify(productList))
-
-                return res.render('index', {productList: productList})
-            }
+        if (req.file) {
+            image = req.file.path.split("\\").slice(1).join("/")
         }
-        res.render('error', {title: 'Error'})
+
+        Product.updateOne({ product_id: id }, {
+            name: req.body.productName,
+            price: req.body.price,
+            image: image,
+            description: req.body.description
+        })
+            .then(() => res.redirect('../'))
+            .catch(next)
+
     }
 }
 
 module.exports = new EditController()
+
