@@ -18,17 +18,20 @@ class EditController {
     update(req, res, next) {
         let id = parseInt(req.params.id)
         let image
-        Product.findOne({ product_id: id })
-            .then(product => {
-                image = product.image
-                unlink(path.join(__dirname, '../public/' + product.image))
-            })
-            .catch(next)
-
         if (req.file) {
             image = req.file.path.split("\\").slice(1).join("/")
         }
 
+        Product.findOne({ product_id: id })
+            .then(product => {
+                if (product.length > 0) {
+                    image = product.image
+                    if (image) {
+                        unlink(path.join(__dirname, '../public/' + product.image))
+                    }
+                }
+            })
+            .catch(next)
         Product.updateOne({ product_id: id }, {
             name: req.body.productName,
             price: req.body.price,
