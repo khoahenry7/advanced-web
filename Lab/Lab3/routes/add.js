@@ -14,13 +14,15 @@ const storage = multer.diskStorage({
     }
 })
 
-const upload = multer({ storage: storage })
+const upload = multer({
+    storage: storage,
+    // limits: { fileSize: 1024 * 1024 * 20 } //50 MB
+})
 
 const addController = require('../controllers/AddController')
 
 router.get('/', addController.getAdd)
 router.post('/', upload.single('image'), addController.postAdd)
-// router.post('/', addController.postAdd)
 
 
 module.exports = router

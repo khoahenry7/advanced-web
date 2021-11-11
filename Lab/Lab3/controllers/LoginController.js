@@ -3,7 +3,7 @@ require('dotenv').config()
 
 class LoginController {
     get(req, res) {
-        res.render('login', {title: "Login", email: ""})
+        res.render('login', { title: "Login", email: "" })
     }
 
     post(req, res) {
@@ -13,7 +13,7 @@ class LoginController {
             req.session.email = email
             res.redirect('index')
         } else {
-            res.render('login', {error: "Invalid email or password", title: "Login", email: req.body.email})
+            res.render('login', { error: "Invalid email or password", title: "Login", email: req.body.email })
         }
     }
 }
