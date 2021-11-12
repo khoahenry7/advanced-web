@@ -11,7 +11,7 @@ class LoginController {
         const password = req.body.password
         if (email === process.env.EMAIL && password === process.env.PASSWORD) {
             req.session.email = email
-            res.redirect('index')
+            res.redirect('../')
         } else {
             res.render('login', { error: "Invalid email or password", title: "Login", email: req.body.email })
         }

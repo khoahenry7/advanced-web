@@ -20,7 +20,7 @@ class HomeController {
                             product: product[0]
                         })
                     } else {
-                        res.render("error", {title: "Error"})
+                        res.render("error", { title: "Error" })
                     }
                 })
                 .catch(next)

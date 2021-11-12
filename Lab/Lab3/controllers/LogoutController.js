@@ -10,4 +10,3 @@ class LogoutController {
 }
 
 module.exports = new LogoutController()
-
