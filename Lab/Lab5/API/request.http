@@ -1,0 +1,21 @@
+GET https://web-nang-cao.herokuapp.com/lab5/users
+
+### 
+POST https://web-nang-cao.herokuapp.com/lab5/users
+
+{
+    "name": "Khoa",
+    "age": "20",
+    "gender": "male",
+    "email": "khoa@gmail.com"
+}
+
+###
+GET https://web-nang-cao.herokuapp.com/lab5/reset
+
+
+###
+GET https://web-nang-cao.herokuapp.com/lab5/users/i8ZEjHdEyhxmZGZnBiJ8ua
+
+###
+DELETE https://web-nang-cao.herokuapp.com/lab5/users/2
