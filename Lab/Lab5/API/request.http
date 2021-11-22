@@ -1,17 +1,26 @@
 GET https://web-nang-cao.herokuapp.com/lab5/users
 
 ### 
-POST https://web-nang-cao.herokuapp.com/lab5/users
+POST http://web-nang-cao.herokuapp.com/lab5/users
+content-type: application/json
 
 {
-    "name": "Khoa",
-    "age": "20",
+    "name": "Khoa Henry",
+    "age": 20,
     "gender": "male",
     "email": "khoa@gmail.com"
 }
 
 ###
-GET https://web-nang-cao.herokuapp.com/lab5/reset
+PUT http://web-nang-cao.herokuapp.com/lab5/users
+content-type: application/json
+
+{
+    "id":"caZj3f5KyKz4pgCU9sLgbi",
+    "name":"Phan Thị Thu Thảo2",
+    "age":26,"gender":"female",
+    "email":"thao@gmail.com"
+}
 
 
 ###

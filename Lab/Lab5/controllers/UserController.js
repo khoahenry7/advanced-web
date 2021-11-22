@@ -1,27 +1,30 @@
 const https = require('https')
 
-class HomeController {
-    get(req, res) {
+class UserController {
+    getUser(req, res) {
+        const id = req.params.id
         const options = {
             hostname: 'web-nang-cao.herokuapp.com',
             port: 443,
-            path: '/lab5/users',
+            path: '/lab5/users/' + id,
             method: 'GET'
         }
-
+        
         const request = https.request(options, response => {
-            let users
+            let user
             response.on('data', data => {
-                users = JSON.parse(data)
+                user = JSON.parse(data)
             })
+
             response.on('end', () => {
-                res.render("index", { users: users })
+                res.render("profile", {user: user.data})
             })
         })
 
         request.end()
     }
 
+    
 }
 
-module.exports = new HomeController()
+module.exports = new UserController()

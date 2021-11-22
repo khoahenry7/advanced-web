@@ -19,18 +19,29 @@ class AddController {
             path: '/lab5/users',
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                'Content-Length': user.length,
+                'Content-Type': 'application/json'
             },
         }
 
+        console.log(user)
+
         const request = https.request(options, response => {
-            let users
+            let msg
             response.on('data', data => {
-                users = JSON.parse(data)
+                msg = JSON.parse(data)
             })
             response.on('end', () => {
-                res.redirect("../")
+                if (msg.code === 1) {
+                    res.render("add", { 
+                        msg,
+                        name: req.body.name || '',
+                        age: parseInt(req.body.age) || '',
+                        gender: req.body.gender || '',
+                        email: req.body.email || ''
+                    })
+                } else {
+                    res.redirect("/")
+                }
             })
         })
 

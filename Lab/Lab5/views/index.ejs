@@ -15,7 +15,11 @@
 
     <div class="container my-3">
         <h4 class="my-5 text-primary text-center text-uppercase">Danh sách người dùng</h4>
-        <a class="btn btn-success btn-sm my-4" href="/add">Thêm người dùng</a>
+        <div style="display: flex; justify-content: space-between">
+            <a class="btn btn-success btn-sm my-4" href="/add">Thêm người dùng</a>
+            <a class="btn btn-info btn-sm my-4" href="/reset">Reset</a>
+        </div>
+        
         <p>Chọn một người dùng để xem chi tiết</p>
         <table class="table table-striped border">
             <thead>
@@ -35,7 +39,7 @@
                             <td class="sequence-number">
                                 <%= (index + 1) %>
                             </td>
-                            <td><a href="#">
+                            <td><a href="/users/<%= user.id %>">
                                     <%= user.name %>
                                 </a></td>
                             <td>
@@ -49,7 +53,8 @@
                             </td>
                             <td>
                                 <button class="btn btn-sm btn-outline-primary btn-update" data-id="<%= user.id %>"
-                                    data-name="<%= user.name %>">Chỉnh sửa</button>
+                                    data-name="<%= user.name %>" data-gender="<%= user.gender %>"
+                                    data-age="<%= user.age %>" data-email="<%= user.email %>">Chỉnh sửa</button>
                                 <button class="btn btn-sm btn-outline-danger btn-delete" data-id="<%= user.id %>"
                                     data-name="<%= user.name %>">Xóa</button>
                             </td>
@@ -104,19 +109,19 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <!-- Modal body -->
-                <div class="modal-body">
+                <form method="POST" class="modal-body" id="form-update" enctype="application/x-www-form-urlencoded">
                     <div class="form-group">
                         <label for="user">Họ tên</label>
-                        <input value="Trần Minh Trí" class="form-control" type="text" placeholder="Nhập tên người dùng"
-                            id="name" name="name">
+                        <input value="Trần Minh Trí" class="form-control" name="name" type="text" placeholder="Nhập tên người dùng"
+                            id="name" >
                     </div>
                     <div class="form-group">
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input checked type="radio" class="custom-control-input" id="gender-male" name="gender">
-                            <label class="custom-control-label" for="gender-male">Nam</label>
+                            <input type="radio" class="custom-control-input" value="male" id="gender-male" name="gender">
+                            <label class="custom-control-label" for="gender-male" >Nam</label>
                         </div>
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" class="custom-control-input" id="gender-female" name="gender">
+                            <input type="radio" class="custom-control-input" value="female" id="gender-female" name="gender">
                             <label class="custom-control-label" for="gender-female">Nữ</label>
                         </div>
                     </div>
@@ -133,14 +138,15 @@
                     <div class="alert alert-danger hidden">
                         Vui lòng nhập đầy đủ thông tin
                     </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" id="btn-confirmed-update">Cập nhật</button>
+                        <button type="button" class="btn btn-dark" data-dismiss="modal">Đóng</button>
+                    </div>
 
-                </div>
+                </form>
 
                 <!-- Modal footer -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Cập nhật</button>
-                    <button type="button" class="btn btn-dark" data-dismiss="modal">Đóng</button>
-                </div>
+                
                 </form>
             </div>
         </div>
@@ -152,18 +158,36 @@
 
         let userId = ""
         let userName = ""
+        let userGender = ""
+        let userAge = 0
+        let userEmail = ""
 
         $('.btn-update').click(e => showUpdateDialog(e))
         $('.btn-delete').click(e => showDeleteDialog(e))
         $("#btn-confirmed-delete").click(() => handleDeleteDialog())
+        // $("#btn-confirmed-update").click(() => handleDataUpdateDialog())
 
         const showUpdateDialog = e => {
             userId = e.target.dataset.id
             userName = e.target.dataset.name
+            userGender = e.target.dataset.gender
+            userAge = parseInt(e.target.dataset.age)
+            userEmail = e.target.dataset.email
+
+            $("#name").val(userName)
+            $("#age").val(userAge)
+            $("#email").val(userEmail)
+
+            if (userGender === "male") {
+                $("#gender-male").prop('checked', true)
+            } else {
+                $("#gender-female").prop('checked', true)
+            }
 
             $("#update-dialog").modal('show')
+            $("#form-update").attr('action', '/update/' + userId + "?_method=PUT")            
         }
-
+        
         const showDeleteDialog = e => {
             userId = e.target.dataset.id
             userName = e.target.dataset.name
