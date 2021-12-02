@@ -1,0 +1,28 @@
+GET https://web-nang-cao.herokuapp.com/lab5/users
+
+### 
+POST http://localhost:3000/account/verify/login
+content-type: application/json
+
+{
+    "username": "khoa123",
+    "password": "123"
+}
+
+###
+PUT http://web-nang-cao.herokuapp.com/lab5/users
+content-type: application/json
+
+{
+    "id":"caZj3f5KyKz4pgCU9sLgbi",
+    "name":"Phan Thị Thu Thảo2",
+    "age":26,"gender":"female",
+    "email":"thao@gmail.com"
+}
+
+
+###
+GET https://web-nang-cao.herokuapp.com/lab5/users/i8ZEjHdEyhxmZGZnBiJ8ua
+
+###
+DELETE https://web-nang-cao.herokuapp.com/lab5/users/2
