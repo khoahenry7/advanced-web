@@ -1,0 +1,49 @@
+POST http://localhost:3000/account/register HTTP/1.1
+content-type: application/json
+
+{
+    "name": "khoa",
+    "email": "khoa3@gmail.com",
+    "password": "123456"
+}
+
+###
+POST http://localhost:3000/account/login HTTP/1.1
+content-type: application/json
+
+{
+    "email": "khoa@gmail.com",
+    "password": "123456"
+}
+
+###
+GET http://localhost:3000/products HTTP/1.1
+access_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoia2hvYUBnbWFpbC5jb20ifSwiZXhwIjoxNjM5NzE2NTM0LCJpYXQiOjE2Mzk3MTI5MzR9.DVWH-LZbRcb6WWX8cW2VQzPA4ndTJodn43C4Dqg4H3c
+
+###
+POST http://localhost:3000/products HTTP/1.1
+access_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoia2hvYUBnbWFpbC5jb20ifSwiZXhwIjoxNjM5NzE2NTM0LCJpYXQiOjE2Mzk3MTI5MzR9.DVWH-LZbRcb6WWX8cW2VQzPA4ndTJodn43C4Dqg4H3c
+content-type: application/json
+
+{
+    "name": "iphone 1233",
+    "price": 123
+}
+
+###
+GET http://localhost:3000/products/61b5bed350c0a06261eaa1b9 HTTP/1.1
+access_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoia2hvYUBnbWFpbC5jb20ifSwiZXhwIjoxNjM5NzE2NTM0LCJpYXQiOjE2Mzk3MTI5MzR9.DVWH-LZbRcb6WWX8cW2VQzPA4ndTJodn43C4Dqg4H3c
+
+###
+PUT http://localhost:3000/products/61b5bed350c0a06261eaa1b9 HTTP/1.1
+access_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoia2hvYUBnbWFpbC5jb20ifSwiZXhwIjoxNjM5NzE2NTM0LCJpYXQiOjE2Mzk3MTI5MzR9.DVWH-LZbRcb6WWX8cW2VQzPA4ndTJodn43C4Dqg4H3c
+content-type: application/json
+
+{
+    "name": "iphone 123",
+    "price": 1
+}
+
+###
+DELETE http://localhost:3000/products/61b5bed350c0a06261eaa1b9 HTTP/1.1
+access_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoia2hvYUBnbWFpbC5jb20ifSwiZXhwIjoxNjM5NzE2NTM0LCJpYXQiOjE2Mzk3MTI5MzR9.DVWH-LZbRcb6WWX8cW2VQzPA4ndTJodn43C4Dqg4H3c
